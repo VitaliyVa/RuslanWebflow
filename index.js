@@ -1,3 +1,12 @@
+// Отправляем высоту в родительское окно при загрузке и каждый раз, когда размер страницы изменяется
+function sendHeight() {
+  var height = document.body.scrollHeight;
+  parent.postMessage({ height: height }, "*");
+}
+
+window.onload = sendHeight;
+window.onresize = sendHeight;
+
 const anim = {
   top: { distance: "150%", origin: "top", opacity: 0, duration: 900 },
   bottom: { distance: "150%", origin: "bottom", opacity: 0, duration: 900 },
@@ -40,7 +49,6 @@ ScrollReveal().reveal(".aerialItem_3", { ...anim.bottom, delay: 200 });
 ScrollReveal().reveal(".aerialItem_4", { ...anim.bottom, delay: 300 });
 ScrollReveal().reveal(".aerialVideo", { ...anim.rotate, duration: 1000 });
 
-
 ScrollReveal().reveal(".clientsItem_1", {
   ...anim.left,
   delay: 0,
@@ -71,11 +79,6 @@ ScrollReveal().reveal(".clientsItem_6", {
   delay: 500,
   duration: 600,
 });
-
-
-
-
-
 
 let currentVideoSrc = document
   .getElementById("videoPlayer")
@@ -173,48 +176,48 @@ const swiper = new Swiper(".mySwiper", {
   },
 });
 
-
-document.addEventListener('DOMContentLoaded', function() {
-    const swiperLinks = document.querySelectorAll('.swiperLink');
-    swiperLinks.forEach(function(link) {
-      link.addEventListener('click', function() {
-        const url = this.dataset.link;
-        const width = 500;
-        const height = 700;
-        const left = (screen.width / 2) - (width / 2);
-        const top = (screen.height / 2) - (height / 2);
-        window.open(url, '_blank', `width=${width},height=${height},top=${top},left=${left}`);
-      });
+document.addEventListener("DOMContentLoaded", function () {
+  const swiperLinks = document.querySelectorAll(".swiperLink");
+  swiperLinks.forEach(function (link) {
+    link.addEventListener("click", function () {
+      const url = this.dataset.link;
+      const width = 500;
+      const height = 700;
+      const left = screen.width / 2 - width / 2;
+      const top = screen.height / 2 - height / 2;
+      window.open(
+        url,
+        "_blank",
+        `width=${width},height=${height},top=${top},left=${left}`
+      );
     });
   });
+});
 
-
-
-  
 const swiperBlog = new Swiper(".mySwiperBlog", {
-    slidesPerView: 3,
-    spaceBetween: 30,
-    loop: true,
-    navigation: {
-      nextEl: ".swiperNextBlog",
-      prevEl: ".swiperPrevBlog",
+  slidesPerView: 3,
+  spaceBetween: 30,
+  loop: true,
+  navigation: {
+    nextEl: ".swiperNextBlog",
+    prevEl: ".swiperPrevBlog",
+  },
+  breakpoints: {
+    0: {
+      slidesPerView: 1,
+      spaceBetween: 0,
     },
-    breakpoints: {
-      0: {
-        slidesPerView: 1,
-        spaceBetween: 0,
-      },
-      640: {
-        slidesPerView: 1,
-        spaceBetween: 0,
-      },
-      768: {
-        slidesPerView: 2,
-        spaceBetween: 20,
-      },
-      1024: {
-        slidesPerView: 3,
-        spaceBetween: 30,
-      },
+    640: {
+      slidesPerView: 1,
+      spaceBetween: 0,
     },
-  });
+    768: {
+      slidesPerView: 2,
+      spaceBetween: 20,
+    },
+    1024: {
+      slidesPerView: 3,
+      spaceBetween: 30,
+    },
+  },
+});
